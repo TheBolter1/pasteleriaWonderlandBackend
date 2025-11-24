@@ -14,17 +14,26 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Producto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idProducto;
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+private Long id;
 
-    @Column(nullable = false)
-    private Integer precio;
+@Column(nullable = false)
+private Integer precio;
 
-    @Column(nullable = false)
-    private String nombreProducto;
+@Column(nullable = false)
+private String nombre;
 
-    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
-    private Set<Carrito> carritos;
+
+private String imagen;
+
+
+private String categoria;
+
+@OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
+@JsonIgnore
+private Set<Carrito> carritos;
+
+
 }
+

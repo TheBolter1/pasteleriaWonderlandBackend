@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -33,7 +32,7 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaRegistro;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Pedido> pedidos;
-
+    // Eliminamos la relación con Detalle para evitar problemas de JSON
+    // @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    // private Set<Detalle> pedidos;
 }

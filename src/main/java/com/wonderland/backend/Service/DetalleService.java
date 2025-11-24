@@ -1,7 +1,7 @@
 package com.wonderland.backend.Service;
 
-import com.wonderland.backend.Model.Pedido;
-import com.wonderland.backend.Repository.PedidoRepository;
+import com.wonderland.backend.Model.Detalle;
+import com.wonderland.backend.Repository.DetalleRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,19 +9,19 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 @Transactional
-public class PedidoService {
+public class DetalleService {
     @Autowired
-    private PedidoRepository pedidoRepository;
+    private DetalleRepository pedidoRepository;
 
-    public List<Pedido> findAll() {
+    public List<Detalle> findAll() {
         return pedidoRepository.findAll();
     }
 
-    public Pedido findById(Long id) {
+    public Detalle findById(Long id) {
         return pedidoRepository.findById(id).orElse(null);
     }
 
-    public Pedido save(Pedido pedido ) {
+    public Detalle save(Detalle pedido ) {
         return pedidoRepository.save(pedido);
     }
 

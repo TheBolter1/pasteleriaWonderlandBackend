@@ -5,6 +5,8 @@ import com.wonderland.backend.Repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -14,6 +16,7 @@ public class UserService {
         this.repo = repo;
     }
 
+    // Crear usuario
     public User crearUsuario(String correo, String password, String rol, String rut) {
         User u = new User();
         u.setCorreo(correo);
@@ -23,6 +26,33 @@ public class UserService {
         u.setFechaRegistro(new Date());
         return repo.save(u);
     }
+
+    // Listar todos los usuarios
+    public List<User> findAll() {
+        return repo.findAll();
+    }
+
+    // Buscar usuario por ID
+    public Optional<User> findById(Long id) {
+        return repo.findById(id);
+    }
+
+    // Actualizar usuario
+    public Optional<User> update(Long id, User user) {
+        return repo.findById(id).map(existing -> {
+            existing.setCorreo(user.getCorreo());
+            existing.setRol(user.getRol());
+            existing.setRut(user.getRut());
+            existing.setPasswordHash(user.getPasswordHash());
+            return repo.save(existing);
+        });
+    }
+
+    // Eliminar usuario
+    public boolean delete(Long id) {
+        return repo.findById(id).map(u -> {
+            repo.delete(u);
+            return true;
+        }).orElse(false);
+    }
 }
-
-

@@ -13,8 +13,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Carrito {
 
-    @EmbeddedId
-    private CarritoId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false)
     private Integer subtotal;
@@ -24,17 +25,19 @@ public class Carrito {
 
     // Relación con Pedido
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("nroPedido")
+    @JoinColumn(
+        name = "nroPedido",
+        foreignKey = @ForeignKey(name = "fk_carrito_pedido")
+    )
     @JsonBackReference
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @JoinColumn(name = "nroPedido", foreignKey = @ForeignKey(name = "fk_carrito_pedido"))
-    private Pedido pedido;
+    private Detalle pedido;
 
     // Relación con Producto
-@ManyToOne(fetch = FetchType.LAZY)
-@MapsId("idProducto")
-@JsonBackReference
-@JoinColumn(name = "idProducto", foreignKey = @ForeignKey(name = "fk_carrito_producto"))
-private Producto producto;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+        name = "producto_id",
+        foreignKey = @ForeignKey(name = "fk_carrito_producto")
+    )
+    private Producto producto;
 }

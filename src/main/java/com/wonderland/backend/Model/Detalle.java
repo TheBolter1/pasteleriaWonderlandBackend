@@ -13,19 +13,21 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Pedido {
+public class Detalle {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long nroPedido;
+    private Long id;  // ID autogenerado
 
+    @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaPedido;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
-            name = "id",
-            nullable = false,
-            foreignKey = @ForeignKey(name = "fk_pedido_user")
+        name = "user_id",
+        nullable = false,
+        foreignKey = @ForeignKey(name = "fk_pedido_user")
     )
     private User user;
 

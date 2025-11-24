@@ -1,9 +1,9 @@
 package com.wonderland.backend.Repository;
 
-import com.wonderland.backend.Model.Pedido;
+import com.wonderland.backend.Model.Detalle;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PedidoRepository extends JpaRepository<Pedido, Long> {
+public interface DetalleRepository extends JpaRepository<Detalle, Long> {
 }
