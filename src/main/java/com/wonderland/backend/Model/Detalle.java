@@ -16,8 +16,8 @@ import java.util.Set;
 public class Detalle {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;  // ID autogenerado
+   
+    private String id;  
 
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)

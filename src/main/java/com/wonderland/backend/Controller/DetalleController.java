@@ -25,7 +25,7 @@ public class DetalleController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity <Detalle> buscar(@PathVariable Long id) {
+    public ResponseEntity <Detalle> buscar(@PathVariable String id) {
         try {
             Detalle pedido = detalleService.findById(id);
             return ResponseEntity.ok(pedido);
@@ -41,7 +41,7 @@ public class DetalleController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Detalle> actualizar(@PathVariable Long id, @RequestBody Detalle detalle) {
+    public ResponseEntity<Detalle> actualizar(@PathVariable String id, @RequestBody Detalle detalle) {
     try {
         Detalle existente = detalleService.findById(id);
 
@@ -60,7 +60,7 @@ public class DetalleController {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminar(@PathVariable Long id) {
+    public ResponseEntity<?> eliminar(@PathVariable String id) {
         try {
             detalleService.delete(id);
             return ResponseEntity.noContent().build();

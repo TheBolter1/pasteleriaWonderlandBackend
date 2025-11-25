@@ -11,21 +11,21 @@ import java.util.List;
 @Transactional
 public class DetalleService {
     @Autowired
-    private DetalleRepository pedidoRepository;
+    private DetalleRepository detalleRepository;
 
     public List<Detalle> findAll() {
-        return pedidoRepository.findAll();
+        return detalleRepository.findAll();
     }
 
-    public Detalle findById(Long id) {
-        return pedidoRepository.findById(id).orElse(null);
+    public Detalle findById(String id) {
+        return detalleRepository.findById(id).orElse(null);
     }
 
-    public Detalle save(Detalle pedido ) {
-        return pedidoRepository.save(pedido);
+    public Detalle save(Detalle detalle ) {
+        return detalleRepository.save(detalle);
     }
 
-    public void delete(Long id) {
-        pedidoRepository.deleteById(id);
+    public void delete(String id) {
+        detalleRepository.deleteById(id);
     }
 }

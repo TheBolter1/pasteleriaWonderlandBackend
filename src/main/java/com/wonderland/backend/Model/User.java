@@ -32,7 +32,5 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaRegistro;
 
-    // Eliminamos la relación con Detalle para evitar problemas de JSON
-    // @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    // private Set<Detalle> pedidos;
+    
 }
