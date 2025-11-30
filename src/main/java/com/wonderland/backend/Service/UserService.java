@@ -16,15 +16,17 @@ public class UserService {
         this.repo = repo;
     }
 
-    public User crearUsuario(String correo, String password, String rol, String rut) {
-        User u = new User();
-        u.setCorreo(correo);
-        u.setPasswordHash(password);
-        u.setRol(rol);
-        u.setRut(rut);
-        u.setFechaRegistro(new Date());
-        return repo.save(u);
-    }
+    public User crearUsuario(String correo, String password, String rol, String rut, String nombres, String apellidos) {
+    User u = new User();
+    u.setCorreo(correo);
+    u.setPasswordHash(password);
+    u.setRol(rol);
+    u.setRut(rut);
+    u.setNombres(nombres);
+    u.setApellidos(apellidos);
+    u.setFechaRegistro(new Date());
+    return repo.save(u);
+}
 
     public List<User> findAll() {
         return repo.findAll();
@@ -41,13 +43,11 @@ public class UserService {
     public Optional<User> update(Long id, User user) {
         return repo.findById(id).map(existing -> {
 
-            // 🔥 CAMPOS QUE SÍ DEBES ACTUALIZAR
+        
             existing.setCorreo(user.getCorreo());
             existing.setRol(user.getRol());
             existing.setRut(user.getRut());
             existing.setPasswordHash(user.getPasswordHash());
-
-            // 🔥 CAMPOS QUE TE FALTABAN
             existing.setNombres(user.getNombres());
             existing.setApellidos(user.getApellidos());
 

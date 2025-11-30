@@ -25,15 +25,19 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody User user) {
-        User u = service.crearUsuario(
-                user.getCorreo(),
-                user.getPasswordHash(),
-                user.getRol(),
-                user.getRut()
-        );
-        return ResponseEntity.ok(u);
-    }
+   public ResponseEntity<User> register(@RequestBody User user) {
+
+    User u = service.crearUsuario(
+        user.getCorreo(),
+        user.getPasswordHash(),
+        user.getRol(),
+        user.getRut(),
+        user.getNombres(),
+        user.getApellidos()
+    );
+
+    return ResponseEntity.ok(u);
+}
 
     @PostMapping("/login")
 public ResponseEntity<?> login(@RequestBody LoginRequest req) {

@@ -35,7 +35,6 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // ================== PRODUCTOS ==================
         productoService.save(new Producto("TC001", 45000, "Torta Cuadrada de Chocolate",
                 "/assets/img/Catalogo/tortas-cuadradas/cuadrada-chocolate.jpg",
                 "Tortas Cuadradas",
@@ -132,8 +131,8 @@ public class DataLoader implements CommandLineRunner {
             cliente.setPasswordHash("cliente123");
             cliente.setRol("CLIENTE");
             cliente.setRut("22222222-2");
-            cliente.setNombres("Juanito");
-            cliente.setApellidos("Perez Pereira");
+            cliente.setNombres("Francisca");
+            cliente.setApellidos("Ruz Farina");
             cliente.setFechaRegistro(new Date());
 
             userRepository.save(admin);
