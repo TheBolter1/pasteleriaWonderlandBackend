@@ -16,7 +16,7 @@ public class UserService {
         this.repo = repo;
     }
 
-    // Crear usuario
+ 
     public User crearUsuario(String correo, String password, String rol, String rut) {
         User u = new User();
         u.setCorreo(correo);
@@ -27,17 +27,21 @@ public class UserService {
         return repo.save(u);
     }
 
-    // Listar todos los usuarios
+
     public List<User> findAll() {
         return repo.findAll();
     }
 
-    // Buscar usuario por ID
     public Optional<User> findById(Long id) {
         return repo.findById(id);
     }
 
-    // Actualizar usuario
+   public Optional<User> findByCorreo(String correo) {
+    return repo.findByCorreo(correo);
+}
+
+
+
     public Optional<User> update(Long id, User user) {
         return repo.findById(id).map(existing -> {
             existing.setCorreo(user.getCorreo());
@@ -48,7 +52,7 @@ public class UserService {
         });
     }
 
-    // Eliminar usuario
+ 
     public boolean delete(Long id) {
         return repo.findById(id).map(u -> {
             repo.delete(u);

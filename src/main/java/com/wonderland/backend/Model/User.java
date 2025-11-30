@@ -26,6 +26,12 @@ public class User {
     @Column(nullable = false)
     private String rol;
 
+    @Column(nullable = false)
+    private String nombres;
+
+    @Column(nullable = false)
+    private String apellidos;
+
     @Column
     private String rut;
 

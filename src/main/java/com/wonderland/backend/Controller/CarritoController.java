@@ -45,7 +45,7 @@ public class CarritoController {
         if (car.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        carrito.setId(id); // ahora solo seteas el id autogenerado
+        carrito.setId(id);
         Carrito actualizado = carritoService.save(carrito);
         return ResponseEntity.ok(actualizado);
     }

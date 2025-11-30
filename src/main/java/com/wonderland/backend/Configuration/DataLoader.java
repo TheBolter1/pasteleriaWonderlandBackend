@@ -1,22 +1,28 @@
-package com.wonderland.backend.Congifuration;
+package com.wonderland.backend.Configuration;
 
 import com.wonderland.backend.Model.Producto;
+import com.wonderland.backend.Model.User;
 import com.wonderland.backend.Service.ProductoService;
+import com.wonderland.backend.Repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
 
 @Component
 public class DataLoader implements CommandLineRunner {
 
     private final ProductoService productoService;
+    private final UserRepository userRepository;
 
-    public DataLoader(ProductoService productoService) {
+    public DataLoader(ProductoService productoService, UserRepository userRepository) {
         this.productoService = productoService;
+        this.userRepository = userRepository;
     }
 
-
-   @Override
+    @Override
     public void run(String... args) throws Exception {
+     
         productoService.save(new Producto("TC001", 45000, "Torta Cuadrada de Chocolate",
                 "/assets/img/Catalogo/tortas-cuadradas/cuadrada-chocolate.jpg",
                 "Tortas Cuadradas",
@@ -96,5 +102,29 @@ public class DataLoader implements CommandLineRunner {
                 "/assets/img/Catalogo/tortas-especiales/torta-boda.webp",
                 "Tortas Especiales",
                 "Hecha por encargo, con diseños personalizados. Sabor delicado, decoración premium y presentación impecable."));
+
+        
+        if (userRepository.count() == 0) {
+            User admin = new User();
+            admin.setCorreo("admin@wonderland.com");
+            admin.setPasswordHash("admin123"); 
+            admin.setRol("ADMIN");
+            admin.setRut("11111111-1");
+            admin.setNombres("Felipe");
+            admin.setApellidos("Administrador");
+            admin.setFechaRegistro(new Date());
+
+            User cliente = new User();
+            cliente.setCorreo("cliente@wonderland.com");
+            cliente.setPasswordHash("cliente123"); 
+            cliente.setRol("CLIENTE");
+            cliente.setRut("22222222-2");
+            cliente.setNombres("Juan");
+            cliente.setApellidos("Cliente");
+            cliente.setFechaRegistro(new Date());
+
+            userRepository.save(admin);
+            userRepository.save(cliente);
+        }
     }
 }

@@ -1,24 +1,29 @@
 package com.wonderland.backend.Controller;
 
+import com.wonderland.backend.Configuration.JwtUtil;
 import com.wonderland.backend.Model.User;
 import com.wonderland.backend.Service.UserService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
 
+    @Autowired
+    private JwtUtil jwtUtil;
     private final UserService service;
 
     public UserController(UserService service) {
         this.service = service;
     }
 
-    // Crear usuario (registro)
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody User user) {
         User u = service.crearUsuario(
@@ -30,7 +35,34 @@ public class UserController {
         return ResponseEntity.ok(u);
     }
 
-    // Listar todos los usuarios
+    @PostMapping("/login")
+public ResponseEntity<?> login(@RequestBody LoginRequest req) {
+
+    User user = service.findByCorreo(req.getCorreo()).orElse(null);
+
+    if (user == null) {
+        return ResponseEntity.status(401).body("Usuario no encontrado");
+    }
+
+    if (!user.getPasswordHash().equals(req.getContrasena())) {
+        return ResponseEntity.status(401).body("Contraseña incorrecta");
+    }
+
+
+    String token = jwtUtil.generarToken(user.getCorreo(), user.getRol());
+
+    return ResponseEntity.ok(
+        new LoginResponse(
+            token,
+            user.getCorreo(),
+            user.getRol(),
+            user.getNombres(),
+            user.getApellidos()
+        )
+    );
+}
+
+
     @GetMapping
     public ResponseEntity<List<User>> listar() {
         List<User> usuarios = service.findAll();
@@ -40,7 +72,7 @@ public class UserController {
         return ResponseEntity.ok(usuarios);
     }
 
-    // Buscar usuario por ID
+  
     @GetMapping("/{id}")
     public ResponseEntity<User> buscar(@PathVariable Long id) {
         Optional<User> usuario = service.findById(id);
@@ -48,7 +80,16 @@ public class UserController {
                       .orElse(ResponseEntity.notFound().build());
     }
 
-    // Actualizar usuario
+   @GetMapping("/correo/{correo}")
+    public ResponseEntity<User> buscarPorCorreo(@PathVariable String correo) {
+    return service.findByCorreo(correo)
+                  .map(ResponseEntity::ok)
+                  .orElse(ResponseEntity.notFound().build());
+}
+
+
+
+ 
     @PutMapping("/{id}")
     public ResponseEntity<User> actualizar(@PathVariable Long id, @RequestBody User user) {
         Optional<User> actualizado = service.update(id, user);
@@ -56,7 +97,7 @@ public class UserController {
                           .orElse(ResponseEntity.notFound().build());
     }
 
-    // Eliminar usuario
+    
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         if (service.delete(id)) {
