@@ -16,12 +16,11 @@ public class SecurityConfig {
     public FilterRegistrationBean<JwtFilter> jwtFilterRegistration() {
         FilterRegistrationBean<JwtFilter> registration = new FilterRegistrationBean<>();
         
-        // 👇 USAMOS LA INSTANCIA, NO LA CLASE
+      
         registration.setFilter(jwtFilter);
 
-        registration.addUrlPatterns("/api/*"); // protege solo /api
-        // este initParameter no lo usas realmente, lo puedes quitar si quieres
-        // registration.addInitParameter("exclude", "/api/user/login,/api/user/register");
+        registration.addUrlPatterns("/api/*");
+     
 
         return registration;
     }

@@ -2,8 +2,10 @@ package com.wonderland.backend.Configuration;
 
 import com.wonderland.backend.Model.Producto;
 import com.wonderland.backend.Model.User;
+import com.wonderland.backend.Model.Mensaje;
 import com.wonderland.backend.Service.ProductoService;
 import com.wonderland.backend.Repository.UserRepository;
+import com.wonderland.backend.Repository.MensajeRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -14,15 +16,18 @@ public class DataLoader implements CommandLineRunner {
 
     private final ProductoService productoService;
     private final UserRepository userRepository;
+    private final MensajeRepository mensajeRepository; 
 
-    public DataLoader(ProductoService productoService, UserRepository userRepository) {
+    public DataLoader(ProductoService productoService,
+                      UserRepository userRepository,
+                      MensajeRepository mensajeRepository) {
         this.productoService = productoService;
         this.userRepository = userRepository;
+        this.mensajeRepository = mensajeRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
-     
         productoService.save(new Producto("TC001", 45000, "Torta Cuadrada de Chocolate",
                 "/assets/img/Catalogo/tortas-cuadradas/cuadrada-chocolate.jpg",
                 "Tortas Cuadradas",
@@ -103,11 +108,11 @@ public class DataLoader implements CommandLineRunner {
                 "Tortas Especiales",
                 "Hecha por encargo, con diseños personalizados. Sabor delicado, decoración premium y presentación impecable."));
 
-        
+
         if (userRepository.count() == 0) {
             User admin = new User();
             admin.setCorreo("admin@wonderland.com");
-            admin.setPasswordHash("admin123"); 
+            admin.setPasswordHash("admin123");
             admin.setRol("ADMIN");
             admin.setRut("11111111-1");
             admin.setNombres("Felipe");
@@ -116,7 +121,7 @@ public class DataLoader implements CommandLineRunner {
 
             User cliente = new User();
             cliente.setCorreo("cliente@wonderland.com");
-            cliente.setPasswordHash("cliente123"); 
+            cliente.setPasswordHash("cliente123");
             cliente.setRol("CLIENTE");
             cliente.setRut("22222222-2");
             cliente.setNombres("Juan");
@@ -125,6 +130,34 @@ public class DataLoader implements CommandLineRunner {
 
             userRepository.save(admin);
             userRepository.save(cliente);
+        }
+
+        if (mensajeRepository.count() == 0) {
+            Mensaje m1 = new Mensaje();
+            m1.setFecha("2025-11-30");
+            m1.setNombre("Torta de matrimonio");
+            m1.setCorreo("fran@duocuc.cl");
+            m1.setOrden("-");
+            m1.setMensaje(
+                "Necesitamos una torta de boda muy grande, de tres pisos, con decoración elegante y flores comestibles. " +
+                "El evento será el 15 de diciembre y necesitamos que la entrega sea puntual en la iglesia central. " +
+                "Además, queremos que tenga sabor vainilla con relleno de frambuesa en todos los pisos. " +
+                "Por favor, confirmen disponibilidad y precio."
+            );
+
+            Mensaje m2 = new Mensaje();
+            m2.setFecha("2025-11-30");
+            m2.setNombre("Cotización coffee break empresa");
+            m2.setCorreo("recursos.fills@empresa.cl");
+            m2.setOrden("-");
+            m2.setMensaje(
+                "Holaaaa, queremos cotizar un servicio de coffee break para 40 personas, con opciones dulces y saladas. " +
+                "La actividad sería un viernes en la mañana, en Providencia. Por favor" +
+                "valores por persona y condiciones de entrega."
+            );
+
+            mensajeRepository.save(m1);
+            mensajeRepository.save(m2);
         }
     }
 }
