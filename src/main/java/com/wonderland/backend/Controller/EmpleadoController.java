@@ -19,13 +19,13 @@ public class EmpleadoController {
         this.empleadoService = empleadoService;
     }
 
-    // GET /api/empleados
+
     @GetMapping
     public List<Empleado> listar() {
         return empleadoService.findAll();
     }
 
-    // GET /api/empleados/{rut}
+
     @GetMapping("/{rut}")
     public ResponseEntity<Empleado> buscar(@PathVariable String rut) {
         Empleado emp = empleadoService.findByRut(rut);
@@ -33,14 +33,12 @@ public class EmpleadoController {
         return ResponseEntity.ok(emp);
     }
 
-    // POST /api/empleados
     @PostMapping
     public Empleado crear(@RequestBody Empleado empleado) {
-        // rut es la PK, viene desde el front
         return empleadoService.save(empleado);
     }
 
-    // PUT /api/empleados/{rut}
+ 
     @PutMapping("/{rut}")
     public ResponseEntity<Empleado> actualizar(@PathVariable String rut,
                                                @RequestBody Empleado datos) {
@@ -60,7 +58,7 @@ public class EmpleadoController {
         return ResponseEntity.ok(actualizado);
     }
 
-    // DELETE /api/empleados/{rut}
+
     @DeleteMapping("/{rut}")
     public ResponseEntity<Void> eliminar(@PathVariable String rut) {
         Empleado emp = empleadoService.findByRut(rut);

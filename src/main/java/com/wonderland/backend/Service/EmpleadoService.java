@@ -1,4 +1,3 @@
-// src/main/java/com/wonderland/backend/Service/EmpleadoService.java
 package com.wonderland.backend.Service;
 
 import com.wonderland.backend.Model.Empleado;

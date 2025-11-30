@@ -27,7 +27,6 @@ public class Empleado {
     public Empleado() {
     }
 
-    // -------- GETTERS / SETTERS ---------
 
     public String getRut() {
         return rut;

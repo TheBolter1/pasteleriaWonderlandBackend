@@ -115,8 +115,6 @@ public class DataLoader implements CommandLineRunner {
                 "/assets/img/Catalogo/tortas-especiales/torta-boda.webp",
                 "Tortas Especiales",
                 "Hecha por encargo, con diseños personalizados. Sabor delicado, decoración premium y presentación impecable."));
-
-        // ================== USUARIOS ==================
         if (userRepository.count() == 0) {
             User admin = new User();
             admin.setCorreo("admin@wonderland.com");
@@ -139,8 +137,6 @@ public class DataLoader implements CommandLineRunner {
             userRepository.save(admin);
             userRepository.save(cliente);
         }
-
-        // ================== MENSAJES ==================
         if (mensajeRepository.count() == 0) {
             Mensaje m1 = new Mensaje();
             m1.setFecha("2025-11-30");
