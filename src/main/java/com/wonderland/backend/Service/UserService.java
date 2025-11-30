@@ -16,7 +16,6 @@ public class UserService {
         this.repo = repo;
     }
 
- 
     public User crearUsuario(String correo, String password, String rol, String rut) {
         User u = new User();
         u.setCorreo(correo);
@@ -27,7 +26,6 @@ public class UserService {
         return repo.save(u);
     }
 
-
     public List<User> findAll() {
         return repo.findAll();
     }
@@ -36,23 +34,27 @@ public class UserService {
         return repo.findById(id);
     }
 
-   public Optional<User> findByCorreo(String correo) {
-    return repo.findByCorreo(correo);
-}
-
-
+    public Optional<User> findByCorreo(String correo) {
+        return repo.findByCorreo(correo);
+    }
 
     public Optional<User> update(Long id, User user) {
         return repo.findById(id).map(existing -> {
+
+            // 🔥 CAMPOS QUE SÍ DEBES ACTUALIZAR
             existing.setCorreo(user.getCorreo());
             existing.setRol(user.getRol());
             existing.setRut(user.getRut());
             existing.setPasswordHash(user.getPasswordHash());
+
+            // 🔥 CAMPOS QUE TE FALTABAN
+            existing.setNombres(user.getNombres());
+            existing.setApellidos(user.getApellidos());
+
             return repo.save(existing);
         });
     }
 
- 
     public boolean delete(Long id) {
         return repo.findById(id).map(u -> {
             repo.delete(u);
